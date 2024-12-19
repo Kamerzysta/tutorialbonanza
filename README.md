@@ -1,22 +1,14 @@
-# Gjett Tallet: En Python-Tutorial
+# Gjett Tallet: En Nettside-Tutorial
 
 ## Introduksjon
 
-I denne tutorialen skal vi lage et enkelt spill kalt **"Gjett Tallet"**. I spillet velger datamaskinen et tilfeldig tall mellom 1 og 100, og spilleren skal prøve å gjette hvilket tall det er. Etter hvert gjett får spilleren beskjed om tallet er for høyt, for lavt, eller riktig.
+I denne tutorialen skal vi lage "Gjett Tallet"-spillet som en nettside! Spillet vil bruke **HTML**, **CSS**, og **JavaScript** for å gi brukerne en interaktiv opplevelse rett i nettleseren.
 
 ### Hva vil du lære?
 
-- Hvordan generere tilfeldige tall i Python
-- Bruk av `while`-løkker for gjentagende logikk
-- Bruk av `try-except` for feilhåndtering
-- Hvordan lese input fra brukeren
-
-### Slik vil spillet fungere:
-
-1. Datamaskinen velger et tilfeldig tall.
-2. Spilleren gjetter tallet.
-3. Programmet gir tilbakemelding (for høyt, for lavt, eller riktig).
-4. Spillet fortsetter til spilleren gjetter riktig.
+- Hvordan lage en enkel nettside med HTML og CSS
+- Hvordan bruke JavaScript for å implementere logikk
+- Hvordan håndtere brukerinput og gi tilbakemeldinger
 
 ---
 
@@ -24,60 +16,123 @@ I denne tutorialen skal vi lage et enkelt spill kalt **"Gjett Tallet"**. I spill
 
 ### Hva trenger vi?
 
-1. **Python installert**: Last ned fra [python.org](https://www.python.org/) hvis du ikke har det.
-2. **En kodeditor**: Du kan bruke IDLE, VS Code, PyCharm eller hvilken som helst annen teksteditor.
-3. **Grunnleggende kunnskap**: Denne tutorialen er for nybegynnere, så du trenger bare minimal erfaring med Python.
+1. **En nettleser**: For å kjøre nettsiden.
+2. **En teksteditor**: Bruk Visual Studio Code, Sublime Text, eller Notepad++ for å skrive koden.
 
 ---
 
 ## Steg-for-steg
 
-### Steg 1: Oppsett av prosjekt
+### Steg 1: HTML-struktur
 
-Lag en ny Python-fil, f.eks. `gjett_tallet.py`. Dette er filen hvor vi skal skrive koden vår.
+Lag en ny fil og kall den `index.html`. Dette blir grunnstrukturen for nettsiden. Skriv følgende kode i filen:
 
-### Steg 2: Importer nødvendige moduler
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gjett Tallet</title>
+  </head>
+  <body>
+    <h1>Gjett Tallet</h1>
+    <p>Jeg tenker på et tall mellom 1 og 100. Kan du gjette hvilket?</p>
 
-Vi bruker `random`-modulen for å generere tilfeldige tall. Legg til følgende linje øverst i filen din:
-
-```python
-import random
+    <div id="game">
+      <input type="number" id="guessInput" placeholder="Skriv inn ditt gjett" />
+      <button onclick="makeGuess()">Gjett</button>
+      <p id="result"></p>
+    </div>
+  </body>
+</html>
 ```
 
-### Steg 3: Lag hovedfunksjonen
+Denne koden lager en grunnleggende nettside med et input-felt og en knapp for å gjette.
 
-Opprett en funksjon som styrer spillets logikk. Skriv inn følgende kode:
+### Steg 2: Legg til CSS for styling
 
-```python
-def gjette_tall_spill():
-    print("Velkommen til 'Gjett Tallet'-spillet!")
-    print("Jeg tenker på et tall mellom 1 og 100. Kan du gjette hvilket?")
+For å gjøre nettsiden penere, legg til en `<style>`-seksjon i `<head>`:
 
-    # Generer et tilfeldig tall mellom 1 og 100
-    hemmelig_tall = random.randint(1, 100)
-    antall_forsøk = 0
+```html
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 20px;
+  }
 
-    while True:
-        try:
-            gjett = int(input("Skriv inn ditt gjett: "))
-            antall_forsøk += 1
+  #game {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    display: inline-block;
+  }
 
-            if gjett < hemmelig_tall:
-                print("For lavt! Prøv igjen.")
-            elif gjett > hemmelig_tall:
-                print("For høyt! Prøv igjen.")
-            else:
-                print(f"Gratulerer! Du gjettet riktig på {antall_forsøk} forsøk.")
-                break
-        except ValueError:
-            print("Vennligst skriv inn et gyldig tall.")
+  input[type="number"] {
+    padding: 10px;
+    margin: 10px 0;
+    width: 50%;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #218838;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+</style>
 ```
 
-### Steg 4: Kjør spillet
+### Steg 3: Legg til JavaScript for logikk
 
-Til slutt, legg til følgende kode nederst i filen for å starte spillet:
+For å få spillet til å fungere, legg til følgende `<script>`-seksjon rett før avsluttende `</body>`-taggen:
 
-```python
-if __name__ == "__main__":
-    gjette_tall_spill()
+```html
+<script>
+  // Generer et tilfeldig tall mellom 1 og 100
+  let secretNumber = Math.floor(Math.random() * 100) + 1;
+  let attempts = 0;
+
+  function makeGuess() {
+    const guessInput = document.getElementById("guessInput");
+    const result = document.getElementById("result");
+
+    const guess = parseInt(guessInput.value);
+    attempts++;
+
+    if (isNaN(guess)) {
+      result.textContent = "Vennligst skriv inn et gyldig tall!";
+      return;
+    }
+
+    if (guess < secretNumber) {
+      result.textContent = "For lavt! Prøv igjen.";
+    } else if (guess > secretNumber) {
+      result.textContent = "For høyt! Prøv igjen.";
+    } else {
+      result.textContent = `Gratulerer! Du gjettet riktig på ${attempts} forsøk.`;
+      document.getElementById("guessInput").disabled = true;
+    }
+
+    guessInput.value = "";
+  }
+</script>
 ```
+
+---
