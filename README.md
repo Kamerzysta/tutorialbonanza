@@ -95,15 +95,3 @@ Her er noen vanlige problemer du kan møte på:
 3. **Tilfeldige tall**: Hvis det hemmelige tallet alltid er det samme, har du kanskje glemt å bruke `random.randint()` riktig.
 
 ---
-
-## Konklusjon
-
-Gratulerer! Du har laget et fullt fungerende "Gjett Tallet"-spill i Python.
-
-### Hva kan du gjøre videre?
-
-- Legg til en funksjon for å la spilleren spille igjen uten å restarte programmet.
-- Legg til en poengsum som reduseres for hvert feilaktige gjett.
-- Gjør spillet mer utfordrende ved å la spilleren velge intervallet (f.eks. 1-1000).
-
-Lykke til med programmeringen! 🎉
