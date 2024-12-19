@@ -81,17 +81,3 @@ Til slutt, legg til følgende kode nederst i filen for å starte spillet:
 if __name__ == "__main__":
     gjette_tall_spill()
 ```
-
----
-
-## Feilsøking
-
-Her er noen vanlige problemer du kan møte på:
-
-1. **Input-feil**: Hvis spilleren skriver inn noe annet enn et tall, vil programmet krasje uten `try-except`-blokken. Sørg for å inkludere den!
-
-2. **Uendelig løkke**: Hvis du glemmer å oppdatere `antall_forsøk` eller sjekke riktig betingelse, kan programmet havne i en evig løkke. Dobbeltsjekk `while True`-betingelsen.
-
-3. **Tilfeldige tall**: Hvis det hemmelige tallet alltid er det samme, har du kanskje glemt å bruke `random.randint()` riktig.
-
----
