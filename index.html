@@ -4,48 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gjett Tallet</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #f4f4f9;
-        color: #333;
-        padding: 20px;
-      }
-
-      #game {
-        margin-top: 20px;
-        padding: 20px;
-        border: 2px solid #ccc;
-        border-radius: 10px;
-        background-color: #fff;
-        display: inline-block;
-      }
-
-      input[type="number"] {
-        padding: 10px;
-        margin: 10px 0;
-        width: 50%;
-      }
-
-      button {
-        padding: 10px 20px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background-color: #218838;
-      }
-
-      #result {
-        margin-top: 20px;
-        font-size: 1.2em;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <h1>Gjett Tallet</h1>
@@ -57,34 +16,6 @@
       <p id="result"></p>
     </div>
 
-    <script>
-      // Generer et tilfeldig tall mellom 1 og 100
-      let secretNumber = Math.floor(Math.random() * 100) + 1;
-      let attempts = 0;
-
-      function makeGuess() {
-        const guessInput = document.getElementById("guessInput");
-        const result = document.getElementById("result");
-
-        const guess = parseInt(guessInput.value);
-        attempts++;
-
-        if (isNaN(guess)) {
-          result.textContent = "Vennligst skriv inn et gyldig tall!";
-          return;
-        }
-
-        if (guess < secretNumber) {
-          result.textContent = "For lavt! Prøv igjen.";
-        } else if (guess > secretNumber) {
-          result.textContent = "For høyt! Prøv igjen.";
-        } else {
-          result.textContent = `Gratulerer! Du gjettet riktig på ${attempts} forsøk.`;
-          document.getElementById("guessInput").disabled = true;
-        }
-
-        guessInput.value = "";
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
